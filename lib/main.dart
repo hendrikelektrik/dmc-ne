@@ -9,9 +9,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
   if (Platform.isWindows) {
-    WindowManager.instance.setMinimumSize(const Size(400, 800));
-    WindowManager.instance.setMaximumSize(const Size(400, 800));
+    WindowOptions windowOptions = const WindowOptions(
+      size: Size(400, 800),
+    );
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
   }
+
   runApp(const MyApp());
 }
 

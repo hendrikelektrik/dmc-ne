@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:window_manager/window_manager.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -21,6 +22,18 @@ class _MyHomePageState extends State<MyHomePage> {
   String areaValue = areaList.first;
   String mcTypeValue = mcTypeList.first;
 
+  var dataList = [];
+
+  void addData() {
+    setState(() {
+      if (dataList.length < 4) {
+        dataList.add("12,7");
+
+        ///print(dataList.length);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -28,18 +41,21 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("DMC Ne"),
-        actions: const [
-          IconButton(
+        actions: [
+          const IconButton(
             onPressed: null,
             icon: Icon(Icons.note),
           ),
-          IconButton(
+          const IconButton(
             onPressed: null,
             icon: Icon(Icons.settings),
           ),
           IconButton(
-            onPressed: null,
-            icon: Icon(Icons.exit_to_app),
+            onPressed: () async {
+              final wm = WindowManager.instance;
+              await wm.close();
+            },
+            icon: const Icon(Icons.exit_to_app),
           ),
         ],
       ),
@@ -53,7 +69,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 dataDisplay(50, screenWidth / 2, Colors.grey)
               ],
             ),
-            const SizedBox(height: 16),
+            // RESET BUTTON
+            SizedBox(
+              height: 16,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    child: const Text(
+                      "reset",
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.red,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -91,6 +126,22 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                      itemCount: dataList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                          leading: CircleAvatar(
+                            child: Text("${index + 1}"),
+                          ),
+                          title: Text(dataList[index]),
+                          trailing: Icon(Icons.remove),
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -99,8 +150,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
-        child: const Icon(Icons.copy_all),
-        onPressed: () {},
+        child: const Icon(Icons.create_sharp),
+        onPressed: () {
+          addData();
+        },
       ),
     );
   }
