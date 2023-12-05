@@ -23,8 +23,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final _screenWidth = MediaQuery.of(context).size.width;
-    final _screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    //final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: const Text("DMC Ne"),
@@ -46,11 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           children: [
-            dataDisplay(150, _screenWidth, Colors.blue),
+            dataDisplay(150, screenWidth, Colors.blue),
             Row(
               children: [
-                dataDisplay(50, _screenWidth / 2, Colors.grey),
-                dataDisplay(50, _screenWidth / 2, Colors.grey)
+                dataDisplay(50, screenWidth / 2, Colors.grey),
+                dataDisplay(50, screenWidth / 2, Colors.grey)
               ],
             ),
             const SizedBox(height: 16),
@@ -69,17 +69,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      plantInput((_screenWidth - 16) / 2),
-                      areInput((_screenWidth - 16) / 2),
+                      plantInput((screenWidth - 16) / 2),
+                      areInput((screenWidth - 16) / 2),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      mcTypeInput((_screenWidth - 16) / 2),
+                      mcTypeInput((screenWidth - 16) / 2),
                       SizedBox(
                         height: 50,
-                        width: (_screenWidth - 16) / 2,
+                        width: (screenWidth - 16) / 2,
                         child: TextField(
                           decoration: InputDecoration(
                             hintText: 'Enter Machine ID !!',
@@ -105,22 +105,22 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget dataDisplay(double _height, double _width, Color _color) {
+  Widget dataDisplay(double height, double width, Color color) {
     return SizedBox(
-      height: _height,
-      width: _width,
+      height: height,
+      width: width,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
         child: Container(
-          color: _color,
+          color: color,
         ),
       ),
     );
   }
 
-  Widget plantInput(double _width) {
+  Widget plantInput(double width) {
     return SizedBox(
-      width: _width,
+      width: width,
       child: Row(
         children: [
           const Text(
@@ -147,9 +147,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget areInput(double _width) {
+  Widget areInput(double width) {
     return SizedBox(
-      width: _width,
+      width: width,
       child: Row(
         children: [
           const Text(
@@ -176,9 +176,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget mcTypeInput(double _width) {
+  Widget mcTypeInput(double width) {
     return SizedBox(
-      width: _width,
+      width: width,
       child: Row(
         children: [
           const Text(
